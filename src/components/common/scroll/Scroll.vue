@@ -35,26 +35,35 @@
       })
 
       //2.监听滚动的位置
+      if(this.probeType ===2|| this.probeType ===3){
       this.scroll.on('scroll',(position)=>{
-        // console.log(position)
-        this.$emit('scroll',position)
+      // console.log(position)
+      this.$emit('scroll',position)
       })
+     }
+
 
       //3.监听上拉事件
-      this.scroll.on('pullingUp',()=>{
-        this.$emit('pullingUp')
-      })
+      if (this.pullUpLoad){
+        this.scroll.on('pullingUp',()=>{
+          this.$emit('pullingUp')
+        })
+      }
+
     },
     methods:{
       scrollTo(x,y,time=300){
        this.scroll && this.scroll.scrollTo(x,y,time)
       },
       finishPullUp(){
-        this.scroll.finishPullUp()
+        this.scroll &&this.scroll.finishPullUp()
       },
       refresh(){
-        console.log('----')
+        console.log('刷新一次')
        this.scroll && this.scroll.refresh()
+      },
+      getScrollY(){
+        return this.scroll ? this.scroll.y:0
       }
     }
   }
